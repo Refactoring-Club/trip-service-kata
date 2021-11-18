@@ -17,7 +17,25 @@ describe("TripServiceShould", () => {
             expect(() => tripService.getTripsByUser(bobby)).toThrow(UserNotLoggedInException);
         });
     });
+
+    describe("when dorothy is logged in", () => {
+        describe("when bobby has no friends", () => {
+            it("returns empty list of trips", () => {
+                const dorothy = new User();
+                loginUser(dorothy);
+                const tripService = new TripService();
+
+                const bobby = new BobbyBuilder().create();
+                expect(tripService.getTripsByUser(bobby)).toEqual([]);
+            });
+        });
+
+    });
 });
+
+function loginUser(user: User) {
+    jest.spyOn(UserSession, "getLoggedUser").mockReturnValue(user);
+}
 
 class BobbyBuilder {
     private readonly innerBobby: User;
