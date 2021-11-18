@@ -1,5 +1,7 @@
 import "jest";
 import UserNotLoggedInException from "../src/exception/UserNotLoggedInException";
+import Trip from "../src/trip/Trip";
+import TripDAO from "../src/trip/TripDAO";
 import TripService from "../src/trip/TripService";
 import User from "../src/user/User";
 import UserSession from "../src/user/UserSession";
@@ -30,8 +32,29 @@ describe("TripServiceShould", () => {
             });
         });
 
+        describe("when bobby has friends", () => {
+            describe("when dorothy is a friend of bobby's", () => {
+                it("returns bobby's trips", () => {
+                    const dorothy = new User();
+                    const bobbysVacation = new Trip();
+                    loginUser(dorothy);
+
+                    const bobby = new BobbyBuilder().withFriend(dorothy).withTrip(bobbysVacation).create();
+                    stubDBFind(bobby);
+
+                    const tripService = new TripService();
+                    const tripList = tripService.getTripsByUser(bobby);
+
+                    expect(tripList).toEqual([bobbysVacation]);
+                });
+            });
+        });
     });
 });
+
+function stubDBFind(user: User) {
+    jest.spyOn(TripDAO, "findTripsByUser").mockReturnValue(user.getTrips());
+}
 
 function loginUser(user: User) {
     jest.spyOn(UserSession, "getLoggedUser").mockReturnValue(user);
