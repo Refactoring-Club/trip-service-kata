@@ -48,6 +48,20 @@ describe("TripServiceShould", () => {
                     expect(tripList).toEqual([bobbysVacation]);
                 });
             });
+
+            describe("when dorothy is not a friend of bobby's", () => {
+                it("returns empty trip list", () => {
+                    const dorothy = new User();
+                    loginUser(dorothy);
+                    const tripService = new TripService();
+
+                    const eleanor = new User();
+                    const bobby = new BobbyBuilder().withFriend(eleanor).create();
+                    const tripList = tripService.getTripsByUser(bobby);
+
+                    expect(tripList).toEqual([]);
+                });
+            });
         });
     });
 });
