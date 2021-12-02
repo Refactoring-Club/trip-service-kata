@@ -1,5 +1,5 @@
-import User from "./User";
 import UserNotLoggedInException from "../exception/UserNotLoggedInException";
+import User from "./User";
 import UserSession from "./UserSession";
 
 export default class UserSessionAdapter {

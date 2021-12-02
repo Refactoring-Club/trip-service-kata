@@ -1,24 +1,18 @@
 import UserNotLoggedInException from "../exception/UserNotLoggedInException";
 import User from "../user/User";
-import UserSession from "../user/UserSession";
+import UserSessionAdapter from "../user/UserSessionAdapter";
 import Trip from "./Trip";
 import TripDAO from "./TripDAO";
 
 export default class TripService {
     public getTripsByUser(user: User): Trip[] {
         let tripList: Trip[] = [];
-        const loggedUser: User = UserSession.getLoggedUser();
+        const loggedUser: User = new UserSessionAdapter().getLoggedInUser();
 
-        const userIsLoggedIn = loggedUser != null;
-
-        if (userIsLoggedIn) {
-            if (user.hasFriend(loggedUser)) {
-                tripList = TripDAO.findTripsByUser(user);
-            }
-
-            return tripList;
-        } else {
-            throw new UserNotLoggedInException();
+        if (user.hasFriend(loggedUser)) {
+            tripList = TripDAO.findTripsByUser(user);
         }
+
+        return tripList;
     }
 }
