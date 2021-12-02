@@ -9,7 +9,9 @@ export default class TripService {
         let tripList: Trip[] = [];
         const loggedUser: User = UserSession.getLoggedUser();
 
-        if (loggedUser != null) {
+        const userIsLoggedIn = loggedUser != null;
+
+        if (userIsLoggedIn) {
             if (user.hasFriend(loggedUser)) {
                 tripList = TripDAO.findTripsByUser(user);
             }
