@@ -1,4 +1,5 @@
 import "jest";
+import BobbyBuilder from "../src/user/BobbyBuilder";
 import UserNotLoggedInException from "../src/exception/UserNotLoggedInException";
 import Trip from "../src/trip/Trip";
 import TripDAO from "../src/trip/TripDAO";
@@ -72,26 +73,4 @@ function stubDBFind(user: User) {
 
 function loginUser(user: User) {
     jest.spyOn(UserSession, "getLoggedUser").mockReturnValue(user);
-}
-
-class BobbyBuilder {
-    private readonly innerBobby: User;
-
-    public constructor() {
-        this.innerBobby = new User();
-    }
-
-    public withFriend(friend: User) {
-        this.innerBobby.addFriend(friend);
-        return this;
-    }
-
-    public withTrip(trip: Trip) {
-        this.innerBobby.addTrip(trip);
-        return this;
-    }
-
-    public create() {
-        return this.innerBobby;
-    }
 }
