@@ -21,6 +21,6 @@ export default class User {
     }
 
     public hasFriend(user: User): boolean {
-        return this.friends.some(friend => user === friend);
+        return this.friends.some((friend) => user === friend);
     }
 }
