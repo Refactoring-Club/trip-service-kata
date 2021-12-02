@@ -1,10 +1,10 @@
 import "jest";
 import BobbyBuilder from "../src/user/BobbyBuilder";
-import UserNotLoggedInException from "../src/exception/UserNotLoggedInException";
 import Trip from "../src/trip/Trip";
 import TripDAO from "../src/trip/TripDAO";
 import TripService from "../src/trip/TripService";
 import User from "../src/user/User";
+import UserNotLoggedInException from "../src/exception/UserNotLoggedInException";
 import UserSession from "../src/user/UserSession";
 
 describe("TripServiceShould", () => {
