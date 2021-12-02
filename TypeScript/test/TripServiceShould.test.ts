@@ -87,7 +87,7 @@ class BobbyBuilder {
     }
 
     public withTrip(trip: Trip) {
-        // this.innerBobby.addTrip(trip);
+        this.innerBobby.addTrip(trip);
         return this;
     }
 
